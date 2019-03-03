@@ -4,12 +4,14 @@
 
             <div class="col-lg-3">
       
-              <h1 class="my-4">Shop Name</h1>
+              <h1 class="my-4">Read now..</h1>
+              <!--
               <div class="list-group">
                 <a href="#" class="list-group-item">Category 1</a>
                 <a href="#" class="list-group-item">Category 2</a>
                 <a href="#" class="list-group-item">Category 3</a>
               </div>
+              -->
       
             </div>
             <!-- /.col-lg-3 -->
@@ -42,7 +44,15 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              
+
+              <!--added new-->
+              <div class="form-group">
+                <input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" />
+               </div>
+               <div class="table-responsive">
+                <h3 align="center">Total Data : <span id="total_records"></span></h3>
+                <!--neeew-->
+
         <!-- foreach loop
               <div class="row">
       
@@ -62,6 +72,10 @@
                   </div>
                 </div>
         -->
+
+            <tbody>
+
+            </tbody>
       
               </div>
               <!-- /.row -->
@@ -71,5 +85,28 @@
       
           </div>
           <!-- /.row -->
-          
+                <script>
+                    $(document).ready(function(){
+
+                    fetch_customer_data();
+
+                    function fetch_customer_data(query = ''){
+                        $.ajax({
+                        url:"{{ route('liveSearch.action') }}",
+                        method:'GET',
+                        data:{query:query},
+                        dataType:'json',
+                        success:function(data){
+                            $('tbody').html(data.table_data);
+                            $('#total_records').text(data.total_data);
+                        }
+                    })
+                    }
+
+                    $(document).on('keyup', '#search', function(){
+                    var query = $(this).val();
+                    fetch_customer_data(query);
+                    });
+                    });
+                </script>
 @endsection
