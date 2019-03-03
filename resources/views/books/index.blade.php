@@ -48,10 +48,10 @@
                 @foreach ($books as $book)
                 <div class="col-lg-4 col-md-6 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="{{$book->image_url}}" alt="img"></a>
+                  <a href="/books/{{$book->book_id}}"><img class="card-img-top" src="{{$book->image_url}}" alt="img"></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">{{$book->title}}</a>
+                        <a href="/books/{{$book->book_id}}">{{$book->title}}</a>
                       </h4>
                       
                     <p class="card-text">{{$book->original_publication_year}}</p>
