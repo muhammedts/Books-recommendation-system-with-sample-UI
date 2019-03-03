@@ -22,7 +22,6 @@ class CreateBooksTable extends Migration
             $table->String('language_code');
             $table->decimal('average_rating');
             $table->Integer('work_ratings_count');
-            $table->Integer('work_text_reviews_count');
             $table->Integer('ratings_1');
             $table->Integer('ratings_2');
             $table->Integer('ratings_3');
@@ -30,7 +29,7 @@ class CreateBooksTable extends Migration
             $table->Integer('ratings_5');
             $table->String('image_url');
             $table->timestamps();
-            
+
         });
     }
 
