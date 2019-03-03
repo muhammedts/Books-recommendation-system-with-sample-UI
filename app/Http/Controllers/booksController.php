@@ -13,7 +13,7 @@ class booksController extends Controller
      */
     public function index()
     {
-        $books = book::all();
+        $books = book::orderBy('average_rating','desc')->paginate(8);
         return view('books.index')->with('books',$books);
     }
 

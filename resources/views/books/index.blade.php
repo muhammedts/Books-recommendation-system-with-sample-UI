@@ -42,22 +42,18 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-      
               <div class="row">
                 @if(count($books)>0)
                 @foreach ($books as $book)
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-3 col-md-3">
                   <div class="card h-100">
-                  <a href="/books/{{$book->book_id}}"><img class="card-img-top" src="{{$book->image_url}}" alt="img"></a>
+                    <a href="/books/{{$book->book_id}}"><img class="card-img-top" src={{$book->image_url}} alt="img"></a>
                     <div class="card-body">
-                      <h4 class="card-title">
+                      <h5 class="card-title">
                         <a href="/books/{{$book->book_id}}">{{$book->title}}</a>
-                      </h4>
+                      </h5>
                       
-                    <p class="card-text">{{$book->original_publication_year}}</p>
-                      <p class="card-text">{{$book->authors}}</p>
-                      <p class="card-text">{{$book->language_code}}</p>
-                      
+                      <p class="card-text">{{$book->original_publication_year}}<br>{{$book->authors}}<br>{{$book->language_code}}</p>  
                     </div>
                     <div class="card-footer">
                     <small class="text-muted">Rating:.{{$book->average_rating}}</small>
@@ -65,11 +61,14 @@
                   </div>
                 </div>
                 @endforeach
+
+          
                 @endif
       
               </div>
+              <br>
               <!-- /.row -->
-      
+              {{$books->links()}}
             </div>
             <!-- /.col-lg-9 -->
       
