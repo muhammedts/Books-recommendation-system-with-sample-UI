@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('books','booksController');
+Route::get('/live_search','liveSearch@index');
