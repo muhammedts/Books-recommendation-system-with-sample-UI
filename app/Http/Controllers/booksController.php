@@ -98,8 +98,8 @@ class booksController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $book= book::find($id);
+        return view('books.edit')->with('book',$book);    }
 
     /**
      * Update the specified resource in storage.
@@ -110,8 +110,25 @@ class booksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+ 
+        $this->validate($request,[
+            'title'=>'required',
+            'isbn'=>'required',
+            'authors'=>'required',
+            'original_publication_year'=>'required',
+            'language_code'=>'required',
+            'image_url'=>'image|nullable|max:1999'
+        ]);
+        
+        $book = book::find($id);
+        $book->title = $request->input('title');
+        $book->isbn = $request->input('isbn');
+        $book->authors = $request->input('authors');
+        $book->original_publication_year = $request->input('original_publication_year');
+        $book->language_code = $request->input('language_code');
+        $book->save();
+        return redirect('\books')->with('success','book Updated');
+        }
 
     /**
      * Remove the specified resource from storage.
@@ -121,6 +138,8 @@ class booksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = book::find($id);
+        $book->delete();
+        return redirect('\books')->with('success','Book Removed');
     }
 }

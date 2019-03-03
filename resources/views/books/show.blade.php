@@ -1,12 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
-
-
-
-
-
-
 <div class="row">
         <div class="col-lg-3">
           <h1 class="mb-4">Shop Name</h1>
@@ -128,8 +121,14 @@
                   </div>
               </div>
           </div>
+          <br>
+          <br>
+        <a href="/books/{{$book->book_id}}/edit" class="btn btn-dark">Edit</a> 
 
-
+        {!!Form::open(['action'=>['booksController@destroy',$book->book_id],'method'=>'POST','class'=>'float-right'])!!}
+        {{Form::hidden('_method','DELETE')}}
+        {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+    {!!Form::close()!!}
   
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
