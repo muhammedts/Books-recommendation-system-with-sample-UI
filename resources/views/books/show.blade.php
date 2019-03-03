@@ -15,7 +15,8 @@
         <div class="col-lg-9">
   
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            
+            <img class="card-img-top img-fluid" src="{{$book->image_url}}" alt="">
             <div class="card-body">
               <h3 class="card-title">Product Name</h3>
               <h4>$24.99</h4>

@@ -30,6 +30,7 @@ class CreateBooksTable extends Migration
             $table->Integer('ratings_5');
             $table->String('image_url');
             $table->timestamps();
+            
         });
     }
 
