@@ -40,23 +40,23 @@
                           <div class="col-xs-12 col-md-6 text-center">
                               <h1 class="rating-num">{{$book->average_rating}}</h1>
                               <div class="rating">
-                                  @if ( {{$book->average_rating}}> "4.0" ){
+                                  @if ( {{$book->average_rating}} > 4.0 ){
                                         <span class="fas fa-star"></span><span class="fas fa-star"></i>
                                         </span><span class="fas fa-star"></span><span class="fas fa-star">
                                         </span><span class="fas fa-star"></span>
-                                    @elseif ( {{$book->average_rating}}> "3.0" ){
+                                    @elseif ( {{$book->average_rating}} > 3.0 || {{$book->average_rating}} <= 4.0 ){
                                         <span class="fas fa-star"></span><span class="fas fa-star"></i>
                                         </span><span class="fas fa-star"></span><span class="fas fa-star">
                                         </span><span class="far fa-star"></span>
-                                    @elseif ( {{$book->average_rating}}> "2.0" ){
+                                    @elseif ( {{$book->average_rating}} > 2.0 || {{$book->average_rating}} <= 3.0){
                                         <span class="fas fa-star"></span><span class="fas fa-star"></i>
                                         </span><span class="fas fa-star"></span><span class="far fa-star">
                                         </span><span class="far fa-star"></span>
-                                    @elseif ( {{$book->average_rating}}> "1.0" ){
+                                    @elseif ( {{$book->average_rating}} > 1.0 || {{$book->average_rating}} <= 2.0){
                                         <span class="fas fa-star"></span><span class="fas fa-star"></i>
                                         </span><span class="far fa-star"></span><span class="far fa-star">
                                         </span><span class="far fa-star"></span>
-                                    @elseif ( {{$book->average_rating}}> "0.0" ){
+                                    @elseif ( {{$book->average_rating}} > 0.0 || {{$book->average_rating}} <= 1.0){
                                         <span class="fas fa-star"></span><span class="far fa-star"></i>
                                         </span><span class="far fa-star"></span><span class="far fa-star">
                                         </span><span class="far fa-star"></span>
