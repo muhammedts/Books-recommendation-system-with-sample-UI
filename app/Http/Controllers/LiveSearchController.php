@@ -9,8 +9,9 @@ class LiveSearchController extends Controller
 {
     function index()
     {
-      $books = book::all();
-     return view('liveSearch')->with('books',$books);
+      $books = book::orderBy('average_rating','desc')->paginate(8);
+
+      return view('liveSearch')->with('books',$books);
     }
     
     function action(Request $request)
@@ -37,15 +38,14 @@ class LiveSearchController extends Controller
       {
        foreach($data as $row)
        {
-        $output .= '
-          <div class="row">
-        
-            <div class="col-lg-4 col-md-6 mb-4">
+        $output .= ' 
+     
+            <div class="col-lg-2 col-sm-6 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="'.$row->image_url.'" alt=""></a>
+                <a href="/books/'.$row->book_id.'"><img class="card-img-top" src="'.$row->image_url.'" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">'.$row->title.'</a>
+                    <a href="/books/'.$row->book_id.'">'.$row->title.'</a>
                   </h4>
                   <p class="card-text">for '.$row->authors.'</p>
                 </div>
@@ -53,7 +53,8 @@ class LiveSearchController extends Controller
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                 </div>
               </div>
-            </div>
+           </div>
+  
         ';
        }
       }

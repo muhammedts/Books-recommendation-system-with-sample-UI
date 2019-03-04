@@ -22,6 +22,9 @@
           <li class="nav-item">
               <a class="nav-link" href="/books/create">Add Book</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/liveSearch">Search Now</a>
+              </li>
             </ul>
           <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->

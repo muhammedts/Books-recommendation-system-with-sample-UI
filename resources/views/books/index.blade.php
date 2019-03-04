@@ -42,6 +42,7 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
+              
               <div class="row">
                 @if(count($books)>0)
                 @foreach ($books as $book)

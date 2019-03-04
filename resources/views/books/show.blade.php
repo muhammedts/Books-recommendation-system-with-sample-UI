@@ -61,7 +61,7 @@
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
                                           <div class="progress-bar bg-success" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                              aria-valuemin="0" aria-valuemax="100" style="width: 54%">
                                               <span class="sr-only">80%</span>
                                           </div>
                                       </div>

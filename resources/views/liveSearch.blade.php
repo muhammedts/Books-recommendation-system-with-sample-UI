@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<!--
   <div class="row">
 
     <div class="col-lg-3">
@@ -12,10 +13,10 @@
                 <a href="#" class="list-group-item">Category 3</a>
               </div>
               -->
-      
+      <!--
     </div>
             <!-- /.col-lg-3 -->
-      
+     <!-- 
     <div class="col-lg-9">
       
               <!--
@@ -51,6 +52,7 @@
         <div class="form-group">
           <input type="text" name="search" id="search" class="form-control" placeholder="Search with title or author" />
           </div>
+         
           <div class="table-responsive">
           <h3 alig="center">Total Data : <span id="total_records"></span></h3>
           <!--neeew-->
@@ -75,16 +77,20 @@
                 </div>
       -->
 
-            <div class='booka'> </div>
+      <div class="row">
+            
             </div>
+      
+            </div>
+            {{$books->links()}}
+          </div>
             <br>
             <!-- /.row -->
-         
           </div>
-       </div><!-- /.row -->
+     <!--  </div><!-- /.row -->
       <!-- /.col-lg-9 -->
-    </div>
-
+   <!-- </div>
+   -->
     <script>
     $(document).ready(function(){
     //alart('teass');
@@ -97,7 +103,7 @@
                   data:{query:query},
                   dataType:'json',
                   success:function(data){
-                      $('.booka').html(data.table_data);
+                      $('.row').html(data.table_data);
                       $('#total_records').text(data.total_data);
                   }
               })
