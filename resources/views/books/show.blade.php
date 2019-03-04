@@ -42,15 +42,33 @@
                   <div class="well well-sm">
                       <div class="row">
                           <div class="col-xs-12 col-md-6 text-center">
-                              <h1 class="rating-num">
-                                  4.0</h1>
+                              <h1 class="rating-num">{{$book->average_rating}}</h1>
                               <div class="rating">
-                                  <span class="fas fa-star"></span><span class="fas fa-star"></i>
-                                  </span><span class="fas fa-star"></span><span class="fas fa-star">
-                                  </span><span class="far fa-star"></span>
+                                  <?php if ( {{$book->average_rating}}> "4.0" ){ ?>
+                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
+                                        </span><span class="fas fa-star"></span><span class="fas fa-star">
+                                        </span><span class="fas fa-star"></span>
+                                    <?php} elseif ( {{$book->average_rating}}> "3.0" ){?>
+                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
+                                        </span><span class="fas fa-star"></span><span class="fas fa-star">
+                                        </span><span class="far fa-star"></span>
+                                    <?php} elseif ( {{$book->average_rating}}> "2.0" ){?>
+                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
+                                        </span><span class="fas fa-star"></span><span class="far fa-star">
+                                        </span><span class="far fa-star"></span>
+                                    <?php} elseif ( {{$book->average_rating}}> "1.0" ){?>
+                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
+                                        </span><span class="far fa-star"></span><span class="far fa-star">
+                                        </span><span class="far fa-star"></span>
+                                    <?php} elseif ( {{$book->average_rating}}> "0.0" ){?>
+                                        <span class="fas fa-star"></span><span class="far fa-star"></i>
+                                        </span><span class="far fa-star"></span><span class="far fa-star">
+                                        </span><span class="far fa-star"></span>
+                                    <?php}?>
+                                    
                               </div>
                               <div>
-                                  <span class="fas fa-star"></span>1,050,008 total
+                                  <span class="fas fa-star"></span>{{$book->work_rating_count}} rate
                               </div>
                           </div>
                           <div class="col-xs-12 col-md-6">
@@ -60,9 +78,10 @@
                                   </div>
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
+                                          <?php $percentage = ({{$book->rating_5}}/{{$book->work_rating_count}})*100; ?>
                                           <div class="progress-bar bg-success" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: 54%">
-                                              <span class="sr-only">80%</span>
+                                              aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $percentage; ?> ">
+                                              <span class="sr-only"><?php echo $percentage; ?></span>
                                           </div>
                                       </div>
                                   </div>
@@ -72,9 +91,10 @@
                                   </div>
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
+                                        <?php $percentage = ({{$book->rating_4}}/{{$book->work_rating_count}})*100; ?>
                                           <div class="progress-bar bg-success" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                              <span class="sr-only">60%</span>
+                                              aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage; ?> ">
+                                              <span class="sr-only"><?php echo $percentage; ?> </span>
                                           </div>
                                       </div>
                                   </div>
@@ -84,9 +104,10 @@
                                   </div>
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
+                                        <?php $percentage = ({{$book->rating_3}}/{{$book->work_rating_count}})*100; ?>
                                           <div class="progress-bar bg-info" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                              <span class="sr-only">40%</span>
+                                              aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage; ?> ">
+                                              <span class="sr-only"><?php echo $percentage; ?></span>
                                           </div>
                                       </div>
                                   </div>
@@ -96,9 +117,10 @@
                                   </div>
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
+                                        <?php $percentage = ({{$book->rating_3}}/{{$book->work_rating_count}})*100; ?>
                                           <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                              <span class="sr-only">20%</span>
+                                              aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage; ?>">
+                                              <span class="sr-only"><?php echo $percentage; ?></span>
                                           </div>
                                       </div>
                                   </div>
@@ -108,9 +130,10 @@
                                   </div>
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
+                                        <?php $percentage = ({{$book->rating_3}}/{{$book->work_rating_count}})*100; ?>
                                           <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                              <span class="sr-only">15%</span>
+                                              aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage; ?>">
+                                              <span class="sr-only"><?php echo $percentage; ?></span>
                                           </div>
                                       </div>
                                   </div>
