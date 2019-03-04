@@ -8,7 +8,6 @@
 require('./bootstrap');
 require('./jquery-3.2.1.min');
 
-
 window.Vue = require('vue');
 
 /**

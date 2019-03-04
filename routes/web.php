@@ -19,5 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('books','booksController');
-Route::get('/liveSearch','liveSearch@index');
-Route::get('/liveSearch/action','liveSearch@action')->name('liveSearch.action');
+Route::get('/liveSearch','liveSearchController@index');
+Route::get('/liveSearch/action','liveSearchController@action')->name('liveSearch.action');

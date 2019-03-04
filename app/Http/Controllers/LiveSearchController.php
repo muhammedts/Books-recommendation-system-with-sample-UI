@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\book;
 use Illuminate\Http\Request;
 use DB;
 
-class LiveSearch extends Controller
+class LiveSearchController extends Controller
 {
     function index()
     {
-     return view('liveSearch');
+      $books = book::all();
+     return view('liveSearch')->with('books',$books);
     }
     
     function action(Request $request)
@@ -37,23 +38,22 @@ class LiveSearch extends Controller
        foreach($data as $row)
        {
         $output .= '
-        <div class="row">
-      
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src=".$row->image_url." alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">.$row->title.</a>
-                </h4>
-                <h5>new</h5>
-                <p class="card-text">for .$row->authors.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+          <div class="row">
+        
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="'.$row->image_url.'" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">'.$row->title.'</a>
+                  </h4>
+                  <p class="card-text">for '.$row->authors.'</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                </div>
               </div>
             </div>
-          </div>
         ';
        }
       }
@@ -69,7 +69,7 @@ class LiveSearch extends Controller
       );
 
       echo json_encode($data);
+       }
      }
-    }
 }
 ?>

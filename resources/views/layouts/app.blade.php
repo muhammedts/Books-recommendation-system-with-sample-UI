@@ -13,6 +13,10 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}" defer></script>
 
+    <!--new-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script rel="stylesheet" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     
 	<!-- Favicons -->
 	<link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
@@ -93,11 +97,12 @@
             </div>
         </main>
     </div>
-        <!-- Scripts -->
+        <!-- Scripts 
         <script src="{{ asset('js/app.js') }}"></script>
-        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+        <script src="vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
         <script>
             CKEDITOR.replace( 'article-ckeditor' );
         </script>
+    -->
 </body>
 </html>

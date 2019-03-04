@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
+  <div class="row">
 
-            <div class="col-lg-3">
+    <div class="col-lg-3">
       
-              <h1 class="my-4">Read now..</h1>
+      <h1 class="my-4">Read now..</h1>
               <!--
               <div class="list-group">
                 <a href="#" class="list-group-item">Category 1</a>
@@ -13,11 +13,12 @@
               </div>
               -->
       
-            </div>
+    </div>
             <!-- /.col-lg-3 -->
       
-            <div class="col-lg-9">
+    <div class="col-lg-9">
       
+              <!--
               <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -44,16 +45,17 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
+                -->
 
               <!--added new-->
-              <div class="form-group">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" />
-               </div>
-               <div class="table-responsive">
-                <h3 align="center">Total Data : <span id="total_records"></span></h3>
-                <!--neeew-->
+        <div class="form-group">
+          <input type="text" name="search" id="search" class="form-control" placeholder="Search with title or author" />
+          </div>
+          <div class="table-responsive">
+          <h3 alig="center">Total Data : <span id="total_records"></span></h3>
+          <!--neeew-->
 
-        <!-- foreach loop
+        <!-- foreach loop  
               <div class="row">
       
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -71,42 +73,40 @@
                     </div>
                   </div>
                 </div>
-        -->
+      -->
 
-            <tbody>
-
-            </tbody>
-      
-              </div>
-              <!-- /.row -->
-      
+            <div class='booka'> </div>
             </div>
-            <!-- /.col-lg-9 -->
-      
+            <br>
+            <!-- /.row -->
+         
           </div>
-          <!-- /.row -->
-                <script>
-                    $(document).ready(function(){
+       </div><!-- /.row -->
+      <!-- /.col-lg-9 -->
+    </div>
 
-                    fetch_customer_data();
+    <script>
+    $(document).ready(function(){
+    //alart('teass');
+      fetch_customer_data();
 
-                    function fetch_customer_data(query = ''){
-                        $.ajax({
-                        url:"{{ route('liveSearch.action') }}",
-                        method:'GET',
-                        data:{query:query},
-                        dataType:'json',
-                        success:function(data){
-                            $('tbody').html(data.table_data);
-                            $('#total_records').text(data.total_data);
-                        }
-                    })
-                    }
-
-                    $(document).on('keyup', '#search', function(){
-                    var query = $(this).val();
-                    fetch_customer_data(query);
-                    });
-                    });
-                </script>
+          function fetch_customer_data(query = ''){
+              $.ajax({
+                  url:"{{ route('liveSearch.action') }}",
+                  method:'GET',
+                  data:{query:query},
+                  dataType:'json',
+                  success:function(data){
+                      $('.booka').html(data.table_data);
+                      $('#total_records').text(data.total_data);
+                  }
+              })
+          }
+      $('#search').on('keyup', function(){
+          //alart('tess');
+          var query = $(this).val();
+          fetch_customer_data(query);
+          });
+      });
+    </Script> 
 @endsection
