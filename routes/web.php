@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index');
 Route::resource('books','booksController');
 Route::get('/liveSearch','liveSearch@index');
 Route::get('/liveSearch/action','liveSearch@action')->name('liveSearch.action');

@@ -12,7 +12,7 @@
           </ul>
             <ul class="nav navbar-nav">
           <li class="nav-item ">
-            <a class="nav-link" href="/home">Home
+            <a class="nav-link" href="/dashboard">Dashboard
             </a>
           </li>
           <li class="nav-item">
