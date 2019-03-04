@@ -4,8 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\book;
+use App\User;
 class booksController extends Controller
 {
+        /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -99,6 +110,9 @@ class booksController extends Controller
     public function edit($id)
     {
         $book= book::find($id);
+        if(auth()->user()->id !== 1){
+            return redirect('/books')->with('error','unauthorized page');
+        }
         return view('books.edit')->with('book',$book);    }
 
     /**
@@ -139,6 +153,9 @@ class booksController extends Controller
     public function destroy($id)
     {
         $book = book::find($id);
+        if(auth()->user()->id !== 1){
+            return redirect('/books')->with('error','unauthorized page');
+        }
         $book->delete();
         return redirect('\books')->with('success','Book Removed');
     }
