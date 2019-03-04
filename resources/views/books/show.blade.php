@@ -122,9 +122,19 @@
                   </div>
               </div>
           </div>
+          <br>
+          <br>
+          @if(!Auth::guest())
+          @if(Auth::user()->id==1)
+        <a href="/books/{{$book->book_id}}/edit" class="btn btn-dark">Edit</a> 
 
+        {!!Form::open(['action'=>['booksController@destroy',$book->book_id],'method'=>'POST','class'=>'float-right'])!!}
+        {{Form::hidden('_method','DELETE')}}
+        {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+    {!!Form::close()!!}
+          @endif
+          @endif
 
-  
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Product Reviews

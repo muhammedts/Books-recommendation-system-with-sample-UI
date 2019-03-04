@@ -12,12 +12,16 @@
           </ul>
             <ul class="nav navbar-nav">
           <li class="nav-item ">
-            <a class="nav-link" href="/home">Home
+            <a class="nav-link" href="/dashboard">Dashboard
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/books">Books</a>
           </li>
+
+          <li class="nav-item">
+              <a class="nav-link" href="/books/create">Add Book</a>
+            </li>
             </ul>
           <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
@@ -32,7 +36,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -43,6 +47,9 @@
                                         {{ __('Logout') }}
                                     </a>
 
+                                    <a class="dropdown-item" href="/books/create">Add Book</a>
+                            
+                                    
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
