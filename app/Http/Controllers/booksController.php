@@ -173,16 +173,7 @@ class booksController extends Controller
      */
 
 
-    public function edit_rate($id_user,$id_book)
-    {
-        $rate= user_rate::find($id_user);
-
-        if(auth()->user()->id !== 1){
-            return redirect('/books')->with('error','unauthorized page');
-        }
-        return view('books.edit')->with('book',$book);
-    }
-
+ 
     public function rate(Request $request)
     {
  
