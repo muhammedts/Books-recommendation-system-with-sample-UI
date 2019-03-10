@@ -4,7 +4,6 @@
 <div class="row">
         <div class="col-lg-3">
                 @include('inc.mostrated')
-
         </div>
         <!-- /.col-lg-3 -->
   
@@ -153,64 +152,10 @@
           </div>
           <br>
           <!--raaaaaaaaaaaaaate-->
-            <button type="submit"  class="rate_now btn btn-dark generalDonation" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#myModalHorizontal">Rate Now</button>
+          <button type="submit"  class="rate_now btn btn-dark generalDonation" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#myModalHorizontal">Rate Now</button>
+          
+          @include('books/rate')
 
-            <!-- Modal -->
-            <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header" style="background: black">
-                        <h4 class="modal-title" id="myModalLabel" style="color: whitesmoke;">Rate {{$book->title}}</h4>
-                    </div>            
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-                        <div>Please rate..</div>
-                        <form id="frm-Rate" name="frm-Rate">
-                            <div class="header-btn">
-                                <div id="star5">
-                                    <label>
-                                        <input id="rdb_physical" name="rdb_donation" value="0" type="radio" checked="" class="validate[required]" >
-                                        5 ,Love it *yestahel eldaga elly et3mlt 3leh*
-                                    </label>
-                                </div>
-                                <div id="star4">
-                                    <label>
-                                        <input id="rdb_physical" name="rdb_donation" value="0" type="radio" checked="" class="validate[required]">
-                                        4 ,really like it 
-                                    </label>
-                                </div>
-                                <div id="star3">
-                                    <label>
-                                        <input id="rdb_physical" name="rdb_donation" value="0" type="radio" checked="" class="validate[required]" >
-                                        3 ,good
-                                    </label>
-                                </div>
-                                <div id="star2">
-                                    <label>
-                                        <input id="rdb_physical" name="rdb_donation" value="0" type="radio" checked="" class="validate[required]" >
-                                        2 ,not bad
-                                    </label>
-                                </div>
-                                <div id="star1">
-                                    <label>
-                                        <input id="rdb_physical" name="rdb_donation" value="0" type="radio" checked="" class="validate[required]" >
-                                        1 ,regret to read
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-body">
-                            <div class="modal-footer" id="modal_footer">
-                                <!--<input id="btnSubmit" name="btnSubmit" value="Rate" class="btn btn-default-border-blk" type="submit">-->
-                                <a href="" class="btn btn-dark">Rate</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <!--raaaaaaaaaaaaaaate-->
           <br>
           @if(!Auth::guest())
           @if(Auth::user()->id==1)
@@ -222,7 +167,6 @@
     {!!Form::close()!!}
           @endif
           @endif
-
 
 
 

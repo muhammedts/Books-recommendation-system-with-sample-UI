@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\book;
 use App\User;
+use App\user_rate;
+
 class booksController extends Controller
 {
         /**
@@ -22,6 +24,9 @@ class booksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    
+
     public function index()
     {
         $books = book::orderBy('average_rating','desc')->paginate(8);
@@ -99,7 +104,7 @@ class booksController extends Controller
     {
        $book= book::find($id);
        return view('books.show')->with('book',$book);
-    }
+    }    
 
     /**
      * Show the form for editing the specified resource.
@@ -159,4 +164,38 @@ class booksController extends Controller
         $book->delete();
         return redirect('\books')->with('success','Book Removed');
     }
+
+    /*
+     * 
+     * the Rate Function
+     * 
+     */
+    public function rate(Request $request)
+    {
+ 
+        $this->validate($request,[
+            'id_user'=>'required',
+            'id_book'=>'required',
+            'user_rate'=>'required'
+        ]);
+
+        $user_rate = new user_rate;
+        $user_rate->id_user = $request->input('id_user');
+        $user_rate->id_book = $request->input('id_book');
+        $user_rate->user_rate = $request->input('user_rate');
+
+        $book = book::find($user_rate->id_book);
+        $book->work_ratings_count = $book->work_ratings_count + 1;
+            if($user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
+        elseif($user_rate=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
+        elseif($user_rate=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
+        elseif($user_rate=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
+        elseif($user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+        
+
+        $book->save();
+        $user_rate->save();
+        //return back();
+        return redirect('\books')->with('success','Rated is saved');
+        }
 }
