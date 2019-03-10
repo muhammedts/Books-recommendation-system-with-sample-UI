@@ -118,7 +118,8 @@ class booksController extends Controller
         if(auth()->user()->id !== 1){
             return redirect('/books')->with('error','unauthorized page');
         }
-        return view('books.edit')->with('book',$book);    }
+        return view('books.edit')->with('book',$book);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -170,6 +171,18 @@ class booksController extends Controller
      * the Rate Function
      * 
      */
+
+
+    public function edit_rate($id_user,$id_book)
+    {
+        $rate= user_rate::find($id_user);
+
+        if(auth()->user()->id !== 1){
+            return redirect('/books')->with('error','unauthorized page');
+        }
+        return view('books.edit')->with('book',$book);
+    }
+
     public function rate(Request $request)
     {
  
@@ -186,11 +199,11 @@ class booksController extends Controller
 
         $book = book::find($user_rate->id_book);
         $book->work_ratings_count = $book->work_ratings_count + 1;
-            if($user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
-        elseif($user_rate=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
-        elseif($user_rate=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
-        elseif($user_rate=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
-        elseif($user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+            if($user_rate->user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
+        elseif($user_rate->user_rate=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
+        elseif($user_rate->user_rate=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
+        elseif($user_rate->user_rate=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
+        elseif($user_rate->user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
         
 
         $book->save();
