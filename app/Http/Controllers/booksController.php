@@ -84,6 +84,7 @@ class booksController extends Controller
         $book->language_code = $request->input('language_code');
         $book->average_rating = 0;
         $book->work_ratings_count = 0;
+        $book->work_text_reviews_count = 0;
         $book->ratings_1 = 0;
         $book->ratings_2 = 0;
         $book->ratings_3 = 0;
