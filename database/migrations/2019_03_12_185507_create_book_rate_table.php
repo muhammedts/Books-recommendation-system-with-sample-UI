@@ -1,10 +1,11 @@
+
 <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserRatesTable extends Migration
+class CreateBookRateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +15,10 @@ class CreateUserRatesTable extends Migration
     public function up()
     {
         Schema::create('book_rate', function (Blueprint $table) {
-            $table->increments('rate_id');
-            $table->Integer('id_user');
-            $table->Integer('id_book');
-            $table->Integer('user_rate');
+            $table->String('id_user');
+            $table->String('id_book');
+            $table->Primary(['id_user', 'id_book']);
+            $table->String('user_rate');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateUserRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_rates');
+        Schema::dropIfExists('book_rates');
     }
 }

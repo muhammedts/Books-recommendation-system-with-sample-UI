@@ -15,19 +15,19 @@
           <label for="two_star"><span class="fas fa-star"></span><span class="fas fa-star"></span></label>
           <input type="radio" id="two_star">
   -->
-          <div class="book row">
-            <div class="col-sm-2">
-                <img class="mx-auto" src={{$book->image_url}} alt="">
-            </div>
-            <div class="col-sm-10">
-              <h1 class="book-title">{{$book->title}}</h3>
-              <ul class="book-info list-unstyled">
-                <li><strong>Author: </strong> {{$book->authors}}</li>
-              <li><strong>Year: </strong>{{$book->original_publication_year}}</li>
-              </ul>
-            </div>
-                
-          </div>
+  <div class="book row">
+        <div class="col-sm-2">
+            <img class="mx-auto" src={{$book->image_url}} alt="">
+        </div>
+        <div class="col-sm-10">
+          <h1 class="book-title">{{$book->title}}</h3>
+          <ul class="book-info list-unstyled">
+            <li><strong>Author: </strong> {{$book->authors}}</li>
+          <li><strong>Year: </strong>{{$book->original_publication_year}}</li>
+          </ul>
+        </div>
+            
+      </div>     
           <!-- /.card -->
 
 
@@ -65,6 +65,7 @@
                                   <span class="fas fa-star"></span>{{$book->work_ratings_count}} rate
                               </div>
                           </div>
+                            
                           <div class="col-xs-12 col-md-6">
                               <div class="row rating-desc">
                                   <div class="col-xs-3 col-md-3 text-right">
@@ -72,16 +73,15 @@
                                   </div>
                                   <div class="col-xs-8 col-md-9">
                                       <div class="progress">
-                                        @if($book->work_ratings_count == 0) {{ $totalRates = $book->work_ratings_count + 1 }}
-                                        @else {{ $totalRates = $book->work_ratings_count }}
-                                        @endif
-                                        @php
-                                        $percentage_5 = ($book->ratings_5 / $totalRates )*100;
-                                        $percentage_4 = ($book->ratings_4 / $totalRates )*100;
-                                        $percentage_3 = ($book->ratings_3 / $totalRates )*100;
-                                        $percentage_2 = ($book->ratings_2 / $totalRates )*100;
-                                        $percentage_1 = ($book->ratings_1 / $totalRates )*100;
-                                        @endphp
+                                            @php
+                                            if($book->work_ratings_count == 0) { $totalRates = $book->work_ratings_count + 1 ;}
+                                            else { $totalRates = $book->work_ratings_count ;}
+                                            $percentage_5 = ($book->ratings_5 / $totalRates )*100;
+                                            $percentage_4 = ($book->ratings_4 / $totalRates )*100;
+                                            $percentage_3 = ($book->ratings_3 / $totalRates )*100;
+                                            $percentage_2 = ($book->ratings_2 / $totalRates )*100;
+                                            $percentage_1 = ($book->ratings_1 / $totalRates )*100;
+                                            @endphp
                                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="20"
                                               aria-valuemin="0" aria-valuemax="100" style="width:{{$percentage_5}}% ">
                                               <span class="sr-only">{{$percentage_5}}</span>
@@ -151,6 +151,7 @@
           @include('books/rate')
 
           <br>
+        
           @if(!Auth::guest())
           @if(Auth::user()->id==1)<!--me4 lazem 1 -->
         <a href="/books/{{$book->book_id}}/edit" class="btn btn-dark">Edit</a> 

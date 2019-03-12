@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\book;
 use App\User;
-use App\user_rate;
+use App\Rate;
 
 class booksController extends Controller
 {
@@ -175,31 +175,37 @@ class booksController extends Controller
 
 
  
-    public function rate(Request $request)
+    public function rate(Request $request ,$id_book)
     {
- 
         $this->validate($request,[
             'id_user'=>'required',
             'id_book'=>'required',
             'user_rate'=>'required'
         ]);
+        $rate = new Rate;
+        $rate->id_user = $request->input('id_user');
+        $rate->id_book = $request->input('id_book');
+        $rate->user_rate = $request->input('user_rate');
 
-        $user_rate = new user_rate;
-        $user_rate->id_user = $request->input('id_user');
-        $user_rate->id_book = $request->input('id_book');
-        $user_rate->user_rate = $request->input('user_rate');
-
-        $book = book::find($user_rate->id_book);
+        $book = book::find($rate->id_book);
         $book->work_ratings_count = $book->work_ratings_count + 1;
-            if($user_rate->user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
-        elseif($user_rate->user_rate=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
-        elseif($user_rate->user_rate=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
-        elseif($user_rate->user_rate=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
-        elseif($user_rate->user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
-        
 
-        $book->save();
-        $user_rate->save();
+            if($rate->user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
+        elseif($rate->user_rate=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
+        elseif($rate->user_rate=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
+        elseif($rate->user_rate=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
+        elseif($rate->user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+
+
+        $book->average_rating = ($book->work_ratings_count * 5) / ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 ) );
+
+        try{
+            $rate->save();
+            $book->save();
+        }
+        catch (\Exception $e) {
+            return redirect('\books')->with('success', 'You have Rated before!');
+        }
         //return back();
         return redirect('\books')->with('success','Rated is saved');
         }
