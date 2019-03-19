@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\book;
-use App\Rate;
+use App\rate;
 use App\User;
 class DashboardController extends Controller
 {
@@ -23,20 +23,25 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function indexx()
     {
         $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        $books =  array('book');
-        /*$rates = Rate::where('id_user', '=', $user_id)->get();
-        if(count($rates) > 0){
+        $rates = rate::where('id_user', '=', $user_id )->get();
+
+        if(!empty($rates)){
             foreach($rates as $rate){
-                $books->push(book::find($rate->id_book));
+                $books = ( book::find($rate->book_id) ); //->groupBy('title')
             }
         }
-        //return view('dashboard')->with('rates',$rates);
-        return view('dashboard')->with('books',$books);*/
-        return view('dashboard');
+        else{ $books = null; }
         
+        return view('dashboard')->with('books', $books);
+        
+    }
+    public function index()
+    {
+        //$user_id = auth()->user()->id;
+        $user = User::find('2');
+        return view('dashboard')->with('rates', $user->rates);  
     }
 }

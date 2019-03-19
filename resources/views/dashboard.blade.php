@@ -43,44 +43,38 @@
                         <br>
                         <br><br>
                         <br>
-                        </div>
-                </div>
-                </div>
-        </div>
-        <div class="col-md-8">
-                <div class="card">
-                        <div class="card-header">The Book you have rated before: </div>
-                        <br>
-                        <!--<br><div class="row">
-                            @if(count($books)>0)
-                            @foreach ($books as $book)
-                            <div class="col-lg-3 col-md-3">
-                              <div class="card h-100">
-                                <a href="/books/{{$book->book_id}}"><img class="card-img-top" src={{$book->image_url}} alt="img"></a>
-                                <div class="card-body">
-                                  <h5 class="card-title">
-                                    <a href="/books/{{$book->book_id}}">{{$book->title}}</a>
-                                  </h5>
-                                  
-                                  <p class="card-text">{{$book->original_publication_year}}<br>{{$book->authors}}<br>{{$book->language_code}}</p>  
-                                </div>
-                                <div class="card-footer">
-                                <small class="text-muted">Rating:.{{$book->average_rating}}</small>
-                                </div>
-                              </div>
-                            </div>
-                            @endforeach
-                            @else 
-                            <h2>there is nothing</h2>
-                            @endif
-                                
+                  </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+                    <div class="card-header">Rated books: </div>
+                    <br>
+                    <br> 
+                    @if(!empty($rates))
+                      <table class="table table-striped">
+                        <tr>
+                            <th>Book title</th>
+                            <th>Auther</th>
+                            <th>Avarave Rate</th>
+                            <th>Your Rate</th>
+                        </tr>
+                        @foreach($rates as $rate)
+                        <tr>
+                            <td>{{optional($rate->book)->title}}</td>
+                            <td>{{optional($rate->book)->authors}}</td>
+                            <td>{{optional($rate->book)->average_rating}}</td><!--can not read culs of book-->
+                            <td>{{$rate->user_rate}}</td>
+                        </tr>
+                        @endforeach
                         
-                             </div><br>-->
-                        <br>
-                        </div>
-                </div>
-                </div>
-        </div>
-        
+                      </table> <br>
+                    @else <h2>No Rates yet</h2>
+                    @endif
+                    <br>
+                    </div>
+            </div>
+       </div>       
 </div>
 @endsection
+
+

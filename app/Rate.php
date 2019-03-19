@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rate extends Model
+class rate extends Model
 {
-    protected $table = 'book_rate';
+    protected $table = 'rates';
     // primary key
     //public $primaryKey = ['id_user','id_book'];
     // timestamps
@@ -14,5 +14,9 @@ class Rate extends Model
     
     public function user(){
         return $this->belingsTo('App\User');
+    }
+
+    public function book(){
+        return $this->hasOne('App\book');
     }
 }

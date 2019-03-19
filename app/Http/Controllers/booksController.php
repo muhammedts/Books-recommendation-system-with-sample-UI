@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\book;
 use App\User;
-use App\Rate;
+use App\rate;
 
 class booksController extends Controller
 {
@@ -178,16 +178,17 @@ class booksController extends Controller
     public function rate(Request $request ,$id_book)
     {
         $this->validate($request,[
-            'id_user'=>'required',
-            'id_book'=>'required',
+            'user_id'=>'required',
+            'book_id'=>'required',
             'user_rate'=>'required'
         ]);
-        $rate = new Rate;
-        $rate->id_user = $request->input('id_user');
-        $rate->id_book = $request->input('id_book');
+
+        $rate = new rate;
+        $rate->user_id = $request->input('user_id');
+        $rate->book_id = $request->input('book_id');
         $rate->user_rate = $request->input('user_rate');
 
-        $book = book::find($rate->id_book);
+        $book = book::find($rate->book_id);
         $book->work_ratings_count = $book->work_ratings_count + 1;
 
             if($rate->user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
@@ -197,15 +198,22 @@ class booksController extends Controller
         elseif($rate->user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
 
 
-        $book->average_rating = ($book->work_ratings_count * 5) / ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 ) );
-
+        //$book->average_rating = ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 )  / ($book->work_ratings_count * 3) );
+            // this is wrong  
         try{
             $rate->save();
+        }
+        catch (\Exception $e) {
+            return redirect('\books')->with('error', $e);
+        }
+
+        try{
             $book->save();
         }
         catch (\Exception $e) {
-            return redirect('\books')->with('success', 'You have Rated before!');
+            return redirect('\books')->with('error', 'Book has a problem!');
         }
+
         //return back();
         return redirect('\books')->with('success','Rated is saved');
         }

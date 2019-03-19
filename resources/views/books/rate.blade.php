@@ -45,8 +45,8 @@
                         </span><span class="far fa-star"></span><br>
 
 
-                        {{ Form::hidden('id_user', Auth::user()->id ) }}
-                        {{ Form::hidden('id_book', $book->book_id) }}
+                        {{ Form::hidden('user_id', Auth::user()->id ) }}
+                        {{ Form::hidden('book_id', $book->book_id) }}
                         
                         
                         {{Form::submit('Rate' ,['class' => 'btn btn-primary'])}}

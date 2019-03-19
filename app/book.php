@@ -11,5 +11,8 @@ class book extends Model
     public $primaryKey = 'book_id';
     // timestamps
     public $timestamps = true;
-    
+
+    public function rate(){
+        return $this->belingsTo('App\rate');
+    }
 }
