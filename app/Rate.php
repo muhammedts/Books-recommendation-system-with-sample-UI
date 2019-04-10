@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rate extends Model
+class Rate extends Model
 {
 
     protected $table = 'rates';
     // primary key
     // timestamps
     public $timestamps = true;
-    
-    
+
+
     public function user(){
         return $this->belongsTo('App\User');
     }

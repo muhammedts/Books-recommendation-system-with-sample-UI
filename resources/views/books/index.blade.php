@@ -4,12 +4,12 @@
 
             <div class="col-lg-3">
               @include('inc.mostrated')
-      
+
             </div>
             <!-- /.col-lg-3 -->
-      
+
             <div class="col-lg-9">
-      
+
               <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -47,8 +47,8 @@
                       <h5 class="card-title">
                         <a href="/books/{{$book->id}}">{{$book->title}}</a>
                       </h5>
-                      
-                      <p class="card-text">{{$book->original_publication_year}}<br>{{$book->authors}}<br>{{$book->language_code}}</p>  
+
+                      <p class="card-text">{{$book->original_publication_year}}<br>{{$book->authors}}<br>{{$book->language_code}}</p>
                     </div>
                     <div class="card-footer">
                     <small class="text-muted">Rating:.{{$book->average_rating}}</small>
@@ -57,17 +57,17 @@
                 </div>
                 @endforeach
 
-          
+
                 @endif
-      
+
               </div>
               <br>
               <!-- /.row -->
               {{$books->links()}}
             </div>
             <!-- /.col-lg-9 -->
-      
+
           </div>
           <!-- /.row -->
-          
+
 @endsection

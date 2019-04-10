@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\book;
 use App\User;
-use App\rate;
+use App\Rate;
 
 class booksController extends Controller
 {
@@ -25,7 +25,7 @@ class booksController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
 
     public function index()
     {
@@ -61,11 +61,11 @@ class booksController extends Controller
         if($request->hasFile('image_url')){
             //getfilename with extention
             $filenameWithExt = $request->file('image_url')->getClientOriginalName();
-            // get just file name 
+            // get just file name
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // get just ext
             $extention = $request->file('image_url')->getClientOriginalExtension();
-            //filename to store 
+            //filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extention;
             // upload image
             $path=$request->file('image_url')->storeAs('public/image_urls',$fileNameToStore);
@@ -102,7 +102,7 @@ class booksController extends Controller
     {
        $book= book::find($id);
        return view('books.show')->with('book',$book);
-    }    
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -128,7 +128,7 @@ class booksController extends Controller
      */
     public function update(Request $request, $id)
     {
- 
+
         $this->validate($request,[
             'title'=>'required',
             'isbn'=>'required',
@@ -137,7 +137,7 @@ class booksController extends Controller
             'language_code'=>'required',
             'image_url'=>'image|nullable|max:1999'
         ]);
-        
+
         $book = book::find($id);
         $book->title = $request->input('title');
         $book->isbn = $request->input('isbn');
@@ -165,13 +165,13 @@ class booksController extends Controller
     }
 
     /*
-     * 
+     *
      * the Rate Function
-     * 
+     *
      */
 
 
- 
+
     public function rate(Request $request ,$id_book)
     {
         $this->validate($request,[
@@ -180,7 +180,9 @@ class booksController extends Controller
             'rating'=>'required'
         ]);
 
-        $rate = new rate;
+
+
+        $rate = new Rate;
         $rate->user_id = $request->input('user_id');
         $rate->book_id = $request->input('book_id');
         $rate->rating = $request->input('rating');
@@ -194,24 +196,30 @@ class booksController extends Controller
         elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
         elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
 
+
+
         //dd($book);
         //$book->average_rating = ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 )  / ($book->work_ratings_count * 5) );
-            // this is wrong  
-        try{
-            $rate->save();
+            // this is wrong
+
+
+        /*try{
+            //dd($rate);
+            Rate::create(['user_id'=>$rate->user_id,'book_id'=>$rate->book_id,'rating'=>$rate->rating]);
+
         }
         catch (\Exception $e) {
-            return redirect('\books')->with('error', $e);
+            return redirect('\books')->with('error', 'saving rate has a problem');
         }
 
         try{
             $book->save();
         }
         catch (\Exception $e) {
-            return redirect('books')->with('error', 'Book has a problem!');
-        }
+            return redirect('\books')->with('error', 'Book has a problem!');
+        }*/
 
         //return back();
-        return redirect('\books')->with('success','Rated is saved');
+        return redirect('\books')->with('success','Rate SAved');
         }
 }

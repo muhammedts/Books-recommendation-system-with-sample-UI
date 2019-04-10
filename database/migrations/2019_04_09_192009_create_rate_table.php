@@ -20,7 +20,7 @@ class CreateRateTable extends Migration
             $table->String('rating');
             $table->timestamps();
 
-            
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('book_id')->references('id')->on('books');
         });

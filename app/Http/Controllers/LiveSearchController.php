@@ -7,13 +7,14 @@ use DB;
 
 class LiveSearchController extends Controller
 {
+
     function index()
     {
       $books = book::orderBy('average_rating','desc')->paginate(8);
 
       return view('liveSearch')->with('books',$books);
     }
-    
+
     function action(Request $request)
     {
      if($request->ajax())
@@ -25,12 +26,12 @@ class LiveSearchController extends Controller
        $data = DB::table('books')
          ->where('title', 'like', '%'.$query.'%')
          ->orWhere('authors', 'like', '%'.$query.'%')
-         ->get();  
+         ->get();
       }
       else
       {
        $data = DB::table('books')
-         ->orderBy('id', 'desc')
+         ->orderBy('id', 'asc')
          ->get();
       }
       $total_row = $data->count();
@@ -38,8 +39,8 @@ class LiveSearchController extends Controller
       {
        foreach($data as $row)
        {
-        $output .= ' 
-     
+        $output .= '
+
             <div class="col-lg-2 col-sm-6 col-md-6 mb-4">
               <div class="card h-100">
                 <a href="/books/'.$row->id.'"><img class="card-img-top" src="'.$row->image_url.'" alt=""></a>
@@ -54,7 +55,7 @@ class LiveSearchController extends Controller
                 </div>
               </div>
            </div>
-  
+
         ';
        }
       }
