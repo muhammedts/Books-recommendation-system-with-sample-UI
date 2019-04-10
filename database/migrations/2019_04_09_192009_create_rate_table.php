@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRatesTable extends Migration
+class CreateRateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,15 @@ class CreateRatesTable extends Migration
     public function up()
     {
         Schema::create('rates', function (Blueprint $table) {
-            $table->String('user_id');
-            $table->String('book_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->Integer('book_id');
             $table->Primary(['user_id', 'book_id']);
-            $table->String('user_rate');
+            $table->String('rating');
             $table->timestamps();
+
+            
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('book_id')->references('id')->on('books');
         });
     }
 

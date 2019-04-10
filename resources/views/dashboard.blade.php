@@ -55,16 +55,19 @@
                         <tr>
                             <th>Book title</th>
                             <th>Auther</th>
-                            <th>Avarave Rate</th>
+                            <th>Avarage Rate</th>
                             <th>Your Rate</th>
                         </tr>
+                       
                         @foreach($rates as $rate)
-                        <tr>
-                            <td>{{optional($rate->book)->title}}</td>
-                            <td>{{optional($rate->book)->authors}}</td>
-                            <td>{{optional($rate->book)->average_rating}}</td><!--can not read culs of book-->
-                            <td>{{$rate->user_rate}}</td>
-                        </tr>
+                            <tr>
+                                <td>{{$rate->book->title}}</td>
+                                <td>{{$rate->book->authors}}</td>
+                                <td>{{$rate->book->average_rating}}</td>
+                                <td>{{$rate->rating}}</td>
+                           </tr>
+                           
+                        
                         @endforeach
                         
                       </table> <br>

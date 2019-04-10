@@ -50,9 +50,7 @@ class booksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        
-        $this->validate($request,[
+    { $this->validate($request,[
             'title'=>'required',
             'isbn'=>'required',
             'authors'=>'required',
@@ -75,7 +73,6 @@ class booksController extends Controller
         else{
             $fileNameToStore='noimage.jpg';
         }
-        
         $book = new Book;
         $book->title = $request->input('title');
         $book->isbn = $request->input('isbn');
@@ -180,25 +177,25 @@ class booksController extends Controller
         $this->validate($request,[
             'user_id'=>'required',
             'book_id'=>'required',
-            'user_rate'=>'required'
+            'rating'=>'required'
         ]);
 
         $rate = new rate;
         $rate->user_id = $request->input('user_id');
         $rate->book_id = $request->input('book_id');
-        $rate->user_rate = $request->input('user_rate');
+        $rate->rating = $request->input('rating');
 
         $book = book::find($rate->book_id);
         $book->work_ratings_count = $book->work_ratings_count + 1;
 
-            if($rate->user_rate=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
-        elseif($rate->user_rate=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
-        elseif($rate->user_rate=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
-        elseif($rate->user_rate=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
-        elseif($rate->user_rate=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+            if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
+        elseif($rate->rating=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
+        elseif($rate->rating=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
+        elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
+        elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
 
-
-        //$book->average_rating = ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 )  / ($book->work_ratings_count * 3) );
+        //dd($book);
+        //$book->average_rating = ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 )  / ($book->work_ratings_count * 5) );
             // this is wrong  
         try{
             $rate->save();
@@ -211,7 +208,7 @@ class booksController extends Controller
             $book->save();
         }
         catch (\Exception $e) {
-            return redirect('\books')->with('error', 'Book has a problem!');
+            return redirect('books')->with('error', 'Book has a problem!');
         }
 
         //return back();

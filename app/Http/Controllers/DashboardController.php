@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\book;
 use App\rate;
 use App\User;
+use App\recommendation;
 class DashboardController extends Controller
 {
     /**
@@ -23,25 +24,15 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function indexx()
-    {
-        $user_id = auth()->user()->id;
-        $rates = rate::where('id_user', '=', $user_id )->get();
 
-        if(!empty($rates)){
-            foreach($rates as $rate){
-                $books = ( book::find($rate->book_id) ); //->groupBy('title')
-            }
-        }
-        else{ $books = null; }
-        
-        return view('dashboard')->with('books', $books);
-        
-    }
     public function index()
     {
-        //$user_id = auth()->user()->id;
-        $user = User::find('2');
-        return view('dashboard')->with('rates', $user->rates);  
+        $user_id = auth()->user()->id;
+        $rates = User::find($user_id)->rates()->with('book')->get();
+        $recommendation = recommendation::where('userId','1');
+        //dd($recommendation);
+
+
+        return view('dashboard',compact('rates'));
     }
 }

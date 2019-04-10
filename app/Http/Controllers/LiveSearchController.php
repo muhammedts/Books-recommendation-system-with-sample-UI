@@ -30,7 +30,7 @@ class LiveSearchController extends Controller
       else
       {
        $data = DB::table('books')
-         ->orderBy('book_id', 'desc')
+         ->orderBy('id', 'desc')
          ->get();
       }
       $total_row = $data->count();
@@ -42,10 +42,10 @@ class LiveSearchController extends Controller
      
             <div class="col-lg-2 col-sm-6 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="/books/'.$row->book_id.'"><img class="card-img-top" src="'.$row->image_url.'" alt=""></a>
+                <a href="/books/'.$row->id.'"><img class="card-img-top" src="'.$row->image_url.'" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="/books/'.$row->book_id.'">'.$row->title.'</a>
+                    <a href="/books/'.$row->id.'">'.$row->title.'</a>
                   </h4>
                   <p class="card-text">for '.$row->authors.'</p>
                 </div>

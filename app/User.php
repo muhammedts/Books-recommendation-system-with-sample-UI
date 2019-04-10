@@ -19,6 +19,10 @@ class User extends Authenticatable
         return $this->hasMany('App\rate');
     }
     
+    public function reviews(){
+        return $this->hasMany('App\Review');
+    }
+    
     protected $fillable = [
         'name', 'email', 'password',
     ];

@@ -80,7 +80,7 @@
       <div class="row">
             
             </div>
-      
+            
             </div>
             {{$books->links()}}
           </div>
