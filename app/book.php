@@ -8,7 +8,7 @@ class book extends Model
 {
     //protected $table = 'books';
     // primary key
-    //public $primaryKey = 'book_id';
+    public $primaryKey = 'id';
     // timestamps
     public $timestamps = true;
 

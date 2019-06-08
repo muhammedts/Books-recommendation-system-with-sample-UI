@@ -8,6 +8,8 @@ class Review extends Model
 {
     protected $table = 'review';
     // primary key
+    public $primaryKey = 'id';
+    public $incrementing = true;  
     // timestamps
     public $timestamps = true;
     

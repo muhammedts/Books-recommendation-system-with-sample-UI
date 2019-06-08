@@ -15,6 +15,13 @@ class User extends Authenticatable
      *
      * @var array
      */
+    
+    // primary key
+    public $primaryKey = 'id';
+    // timestamps
+    public $timestamps = true;
+
+
     public function rates(){
         return $this->hasMany('App\rate');
     }
@@ -23,6 +30,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Review');
     }
     
+    public function recommendation(){
+        return $this->hasMany('App\recommendation');
+    }
     protected $fillable = [
         'name', 'email', 'password',
     ];

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\book;
 use App\User;
 use App\rate;
+use App\Review;
 
 class booksController extends Controller
 {
@@ -29,7 +30,7 @@ class booksController extends Controller
 
     public function index()
     {
-        $books = book::orderBy('average_rating','desc')->paginate(8);
+        $books = book::orderBy('title','desc')->paginate(8);
         return view('books.index')->with('books',$books);
     }
 
@@ -100,7 +101,7 @@ class booksController extends Controller
      */
     public function show($id)
     {
-       $book= book::find($id);
+       $book = book::find($id);
        return view('books.show')->with('book',$book);
     }    
 
@@ -163,7 +164,10 @@ class booksController extends Controller
         $book->delete();
         return redirect('\books')->with('success','Book Removed');
     }
+    
 
+
+    
     /*
      * 
      * the Rate Function
@@ -172,7 +176,7 @@ class booksController extends Controller
 
 
  
-    public function rate(Request $request ,$id_book)
+    public function rate(Request $request)
     {
         $this->validate($request,[
             'user_id'=>'required',
@@ -180,38 +184,74 @@ class booksController extends Controller
             'rating'=>'required'
         ]);
 
-        $rate = new rate;
-        $rate->user_id = $request->input('user_id');
-        $rate->book_id = $request->input('book_id');
-        $rate->rating = $request->input('rating');
 
-        $book = book::find($rate->book_id);
-        $book->work_ratings_count = $book->work_ratings_count + 1;
+        ////
+        ///if the user is rated before rate will be edited if not will be added////
+        ////
+        
+        // $rate = rate::where('user_id', '=', $request->input('user_id'))
+        // ->andWhere('book_id', '=' , $request->input('book_id'))->first();
 
-            if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
-        elseif($rate->rating=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
-        elseif($rate->rating=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
-        elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
-        elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+        $rate = rate::where(function($q) use ($request) {
+            $q->where('user_id', '=', $request->input('user_id'))
+            ->Where('book_id', '=' , $request->input('book_id'));
+          });
 
-        //dd($book);
-        //$book->average_rating = ( ($book->ratings_5 * 5 ) + ( $book->ratings_4 * 4 ) + ( $book->ratings_3 * 3 ) + ( $book->ratings_2 * 2 ) + ( $book->ratings_1 * 1 )  / ($book->work_ratings_count * 5) );
+        //dd($rate);
+        if ($rate != null && $rate != ''){
+            //will edited
+            $book = book::find( $request->input('book_id') );
+
+                if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 - 1;}
+            elseif($rate->rating=='4'){$book->ratings_4 = $book->ratings_4 - 1;}
+            elseif($rate->rating=='3'){$book->ratings_3 = $book->ratings_3 - 1;}
+            elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 - 1;}
+            elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 - 1;}
+
+            $rate->rating = $request->input('rating');
+
+                if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
+            elseif($rate->rating=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
+            elseif($rate->rating=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
+            elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
+            elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+
+            $one = ( ($book->ratings_5 + $book->ratings_4 + $book->ratings_3 + $book->ratings_2 + $book->ratings_1)  / ($book->work_ratings_count * 5) );
+            $book->average_rating = 5 * $one ;
+            
+            try{$rate->save();}
+            catch (\Exception $e) {return redirect('\books')->with('error', 'error in rate');}
+        }
+
+        else{
+            //will added
+            $rate = new rate;
+            $rate->user_id = $request->input('user_id');
+            $rate->book_id = $request->input('book_id');
+            $rate->rating = $request->input('rating');
+            //
+            $book = book::find($rate->book_id);
+            $book->work_ratings_count = $book->work_ratings_count + 1;
+
+                if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
+            elseif($rate->rating=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
+            elseif($rate->rating=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
+            elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
+            elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
+
+            $one = ( ($book->ratings_5 + $book->ratings_4 + $book->ratings_3 + $book->ratings_2 + $book->ratings_1)  / ($book->work_ratings_count * 5) );
+            $book->average_rating = 5 * $one ;
             // this is wrong  
-        try{
-            $rate->save();
-        }
-        catch (\Exception $e) {
-            return redirect('\books')->with('error', $e);
+            try{$rate->save();}
+            catch (\Exception $e) {return redirect('\books')->with('error', 'error in rate');}
         }
 
-        try{
-            $book->save();
-        }
-        catch (\Exception $e) {
-            return redirect('books')->with('error', 'Book has a problem!');
-        }
+        try{$book->save();}
+        catch (\Exception $e) {return redirect('books')->with('error', 'Book has a problem!');}
+
 
         //return back();
-        return redirect('\books')->with('success','Rated is saved');
+        return redirect('books\\' . $request->input('book_id'))->with('success','Rated is saved');
         }
+
 }

@@ -2,7 +2,7 @@
 @section('content')
     <h1>Edit Book</h1>
 
-{!! Form::open(['action' => ['booksController@update',$book->book_id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}
+{!! Form::open(['action' => ['booksController@update',$book->id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}
     <div class="form-group">
         {{Form::label('title','Title')}}
         {{Form::text('title',$book->title,['class'=>'form-control','placeholder'=>'Title'])}}

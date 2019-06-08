@@ -147,41 +147,54 @@
           <br>
           <!--raaaaaaaaaaaaaate-->
           <button type="submit"  class="rate_now btn btn-dark generalDonation" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#myModalHorizontal">Rate Now</button>
-          
           @include('books/rate')
 
           <br>
         
           @if(!Auth::guest())
           @if(Auth::user()->id==1)<!--me4 lazem 1 -->
-        <a href="/books/{{$book->book_id}}/edit" class="btn btn-dark">Edit</a> 
+        <a href="/books/{{$book->id}}/edit" class="btn btn-dark">Edit</a> 
 
-        {!!Form::open(['action'=>['booksController@destroy',$book->book_id],'method'=>'POST','class'=>'float-right'])!!}
+        {!!Form::open(['action'=>['booksController@destroy',$book->id],'method'=>'POST','class'=>'float-right'])!!}
         {{Form::hidden('_method','DELETE')}}
         {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
-    {!!Form::close()!!}
+        {!!Form::close()!!}
           @endif
           @endif
-
-
 
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
-              Product Reviews
+              Book Reviews
             </div>
             <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <a href="#" class="btn btn-success">Leave a Review</a>
+              <!--if there is rewirw plz put it-->
+              @if(isset($book->reviews))
+                <table class="table table-striped">
+                    <tr>
+                        <th>User name</th>
+                        <th>Review</th>
+                    </tr>
+                    @foreach($book->reviews as $Review)
+                    <tr>
+                        <td>{{$Review->user->name}}</td>
+                        <td>{{$Review->review}}</td>
+                    </tr> 
+                    @endforeach
+                </table> <br>
+                @else <h2>This book have no reviews yet, write one now!</h2>
+                @endif
             </div>
-          </div>
+            <div class="card-body">
+            {!!Form::open(['action'=>['reviewController@index'],'method'=>'POST' ])!!}
+                <div class='form-group'>
+                    {{Form::textarea('review' , '' , ['class' => 'form-conrol' , 'placeholder' => 'write your opinion..'])}}
+                </div>
+                {{ Form::hidden('user_id', Auth::user()->id ) }}
+                {{ Form::hidden('book_id', $book->id) }}
+                {{Form::submit('Add Review',['class'=>'btn btn-primary'])}}
+            {{Form::close()}}
+            </div>
+        </div>
           <!-- /.card -->
   
         </div>

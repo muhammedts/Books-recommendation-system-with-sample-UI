@@ -8,7 +8,9 @@ class rate extends Model
 {
 
     protected $table = 'rates';
-    // primary key
+    // primary key (['user_id', 'book_id'])
+    public $primaryKey = ['user_id', 'book_id'];
+    public $incrementing = false;   
     // timestamps
     public $timestamps = true;
     

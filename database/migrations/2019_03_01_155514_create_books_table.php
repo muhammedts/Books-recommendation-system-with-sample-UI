@@ -14,7 +14,7 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->increments('book_id');
+            $table->increments('id');
             $table->Integer('isbn');
             $table->String('authors');
             $table->Integer('original_publication_year');
@@ -22,6 +22,7 @@ class CreateBooksTable extends Migration
             $table->String('language_code');
             $table->decimal('average_rating');
             $table->Integer('work_ratings_count');
+            $table->Integer('work_text_reviews_count');
             $table->Integer('ratings_1');
             $table->Integer('ratings_2');
             $table->Integer('ratings_3');

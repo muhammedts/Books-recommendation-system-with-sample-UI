@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div>Please rate..</div>
                     
-                        {!! Form::open(['action' =>['booksController@rate' ,$book->id], 'method' =>'POST']) !!}
+                        {!! Form::open(['action' =>['booksController@rate'], 'method' =>'POST']) !!}
                         
                         {{Form::label('rate5','-')}}    
                         {{form::radio('rating','5',false)}}
