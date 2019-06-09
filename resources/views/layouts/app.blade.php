@@ -17,7 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script rel="stylesheet" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    
+
 	<!-- Favicons -->
 	<link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 	<link rel="apple-touch-icon" href="{{ asset('images/icon.png') }}">
@@ -26,14 +26,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
-    
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
-    
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
 </head>
 <body>
     <div id="app">
@@ -97,7 +97,7 @@
             </div>
         </main>
     </div>
-        <!-- Scripts 
+        <!-- Scripts
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
         <script>

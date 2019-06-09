@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\book;
-use App\rate;
+use App\Rate;
 use App\User;
 use App\recommendation;
+use DB;
 class DashboardController extends Controller
 {
     /**

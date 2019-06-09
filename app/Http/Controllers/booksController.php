@@ -26,7 +26,7 @@ class booksController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
 
     public function index()
     {
@@ -62,11 +62,11 @@ class booksController extends Controller
         if($request->hasFile('image_url')){
             //getfilename with extention
             $filenameWithExt = $request->file('image_url')->getClientOriginalName();
-            // get just file name 
+            // get just file name
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // get just ext
             $extention = $request->file('image_url')->getClientOriginalExtension();
-            //filename to store 
+            //filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extention;
             // upload image
             $path=$request->file('image_url')->storeAs('public/image_urls',$fileNameToStore);
@@ -103,7 +103,7 @@ class booksController extends Controller
     {
        $book = book::find($id);
        return view('books.show')->with('book',$book);
-    }    
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -129,7 +129,7 @@ class booksController extends Controller
      */
     public function update(Request $request, $id)
     {
- 
+
         $this->validate($request,[
             'title'=>'required',
             'isbn'=>'required',
@@ -138,7 +138,7 @@ class booksController extends Controller
             'language_code'=>'required',
             'image_url'=>'image|nullable|max:1999'
         ]);
-        
+
         $book = book::find($id);
         $book->title = $request->input('title');
         $book->isbn = $request->input('isbn');
@@ -169,9 +169,9 @@ class booksController extends Controller
 
     
     /*
-     * 
+     *
      * the Rate Function
-     * 
+     *
      */
 
 

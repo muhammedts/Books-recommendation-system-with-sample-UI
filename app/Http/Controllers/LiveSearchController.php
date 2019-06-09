@@ -13,7 +13,7 @@ class LiveSearchController extends Controller
         {
           $books = book::where('title', 'LIKE' , '%'. $request->get('query') . '%' )
           ->orWhere('authors', 'LIKE' , '%'. $request->get('query') . '%')
-          ->paginate(10)
+          ->paginate(8)
           ->get();
 
         }else
