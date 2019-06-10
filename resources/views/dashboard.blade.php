@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header h2">Dashboard</div>
 
@@ -24,10 +24,10 @@
             </div>
         </div>
         <br>
-        <div class="col-md-8">
+        <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header h2">your books recommendations: </div>
                         @if(!empty($recArr))
+                        <div class="card-header h2">your books recommendations: </div>
                             <table class="table table-striped">
                                 <tr>
                                     <th>Book title</th>
@@ -42,15 +42,15 @@
                                 </tr> 
                                 @endforeach
                             </table> <br>
-                    @else <h2>your have no recommendations yet!</h2>
+                    @else <h4>your have no recommendations yet!</h4>
                     @endif
                   </div>
           </div>
           <br>
-          <div class="col-md-8">
+          <div class="col-lg-12">
             <div class="card">
+                        @if(count($rates) > 0)
                     <div class="card-header h2">Rated books: </div>
-                        @if(!empty($rates))
                         <table class="table table-striped">
                             <tr>
                                 <th>Book title</th>
@@ -67,9 +67,10 @@
                             </tr>
                             @endforeach
                         </table>
-                    @else <h2>No Rates yet</h2>
+                    @else <h4>No Rates yet!</h4>
                     @endif
                     </div>
+                    {{$rates->links()}}
             </div>
        </div>
 </div>

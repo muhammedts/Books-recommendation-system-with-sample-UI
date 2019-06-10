@@ -2,12 +2,13 @@
 @section('content')
 
 <div class="row">
-        <div class="col-lg-3">
+        {{-- <div class="col-lg-3">
                 @include('inc.mostrated')
-        </div>
+        </div> --}}
+        
         <!-- /.col-lg-3 -->
   
-        <div class="col-lg-9">
+        <div class="col-lg-12">
   <!--
           <label for="one_star"><span class="fas fa-star"></span></label>
           <input type="radio" id="one_star">
@@ -187,8 +188,9 @@
             <div class="card-body">
             {!!Form::open(['action'=>['reviewController@index'],'method'=>'POST' ])!!}
                 <div class='form-group'>
-                    {{Form::textarea('review' , '' , ['class' => 'form-conrol' , 'placeholder' => 'write your opinion..'])}}
+                    {{Form::text('review' , '' , ['class' => 'form-control ','placeholder' => 'write your opinion..'])}}
                 </div>
+               
                 {{ Form::hidden('user_id', Auth::user()->id ) }}
                 {{ Form::hidden('book_id', $book->id) }}
                 {{Form::submit('Add Review',['class'=>'btn btn-primary'])}}
@@ -201,5 +203,5 @@
         <!-- /.col-lg-9 -->
   
       </div>
-  
+ 
 @endsection

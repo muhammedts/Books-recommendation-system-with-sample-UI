@@ -29,7 +29,7 @@ class DashboardController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $rates = User::find($user_id)->rates()->get();
+        $rates = User::find($user_id)->rates()->paginate(10);
 
 
         //recommendation section-------------------------

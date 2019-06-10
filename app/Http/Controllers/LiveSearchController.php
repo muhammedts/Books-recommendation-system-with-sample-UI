@@ -13,12 +13,12 @@ class LiveSearchController extends Controller
         {
           $books = book::where('title', 'LIKE' , '%'. $request->get('query') . '%' )
           ->orWhere('authors', 'LIKE' , '%'. $request->get('query') . '%')
-          ->paginate(8)
+          ->paginate(12)
           ->get();
 
         }else
         {
-          $books = book::paginate(8);
+          $books = book::paginate(12);
         }
       //return view('\liveSearch')->with('books',$books);
       return view('\liveSearch' , ['books' => $books]);
@@ -35,11 +35,11 @@ class LiveSearchController extends Controller
           $books=book::where(function($q) use ($request) {
             $q->where('title', 'LIKE' , '%'. $request->get('query') . '%')
             ->orWhere('authors', 'LIKE' , '%'. $request->get('query') . '%');
-          })->paginate(8);
+          })->paginate(12);
 
         }else
         {
-          $books = book::paginate(10);
+          $books = book::paginate(12);
         }
       //return view('\liveSearch')->with('books',$books);
       return view('\liveSearch' , ['books' => $books]);

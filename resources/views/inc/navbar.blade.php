@@ -16,15 +16,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/books">Books</a>
+            <a class="nav-link" href="/liveSearch">Books</a>
           </li>
 
           <li class="nav-item">
               <a class="nav-link" href="/books/create">Add Book</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="/liveSearch">Search Now</a>
-              </li>
+              </li> --}}
             </ul>
           <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
