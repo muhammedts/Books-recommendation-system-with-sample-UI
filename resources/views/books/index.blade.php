@@ -40,7 +40,7 @@
       <div class="col-lg-3 col-md-3">
         <div class="card h-100">
           <a href="/books/{{$book->id}}"><img class="card-img-top" src={{ asset($book->image_url) }} alt="img"></a>
-          <div class="card-body">
+        <div class="card-body">
             <h5 class="card-title">
               <a href="/books/{{$book->id}}">{{$book->title}}</a>
             </h5>

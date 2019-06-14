@@ -60,6 +60,7 @@ class booksController extends Controller
             'language_code'=>'required',
             'image_url'=>'image|nullable|max:1999'
         ]);
+
         if($request->hasFile('image_url')){
             //getfilename with extention
             $filenameWithExt = $request->file('image_url')->getClientOriginalName();
@@ -75,6 +76,7 @@ class booksController extends Controller
         else{
             $fileNameToStore='noimage.jpg';
         }
+        
         $book = new Book;
         $book->title = $request->input('title');
         $book->isbn = $request->input('isbn');
@@ -184,21 +186,17 @@ class booksController extends Controller
             'book_id'=>'required',
             'rating'=>'required'
         ]);
-
-
         ////
         ///if the user is rated before rate will be edited if not will be added////
         ////
+        $rate = Rate::where('user_id', '=',$request->input('user_id'))
+            ->where('book_id', '=', $request->input('book_id'))
+            ->first();
+            //->get();
 
-          $rate = rate::where('user_id', '=',$request->input('user_id'))
-                ->where('book_id', '=', $request->input('book_id'))
-                ->first();
-                //->get();
-
-        
         if ($rate != null && $rate != ''){
-           
             //will edited
+            //dd($rate);
             $book = book::find( $request->input('book_id') );
 
                 if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 - 1;}
@@ -208,24 +206,23 @@ class booksController extends Controller
             elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 - 1;}
 
             $rate->rating = $request->input('rating');
-
+            
                 if($rate->rating=='5'){$book->ratings_5 = $book->ratings_5 + 1;}
             elseif($rate->rating=='4'){$book->ratings_4 = $book->ratings_4 + 1;}
             elseif($rate->rating=='3'){$book->ratings_3 = $book->ratings_3 + 1;}
             elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
             elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
 
-            // $one = ( ($book->ratings_5 + $book->ratings_4 + $book->ratings_3 + $book->ratings_2 + $book->ratings_1)  / ($book->work_ratings_count * 5) );
-            // $book->average_rating = 5 * $one ;
+            $one = ( (($book->ratings_5 * 5) + ($book->ratings_4 * 4) + ($book->ratings_3 * 3) + ($book->ratings_2 * 2) + ($book->ratings_1 * 1))  / ($book->work_ratings_count * 5) );
+            $book->average_rating = 5 * $one ;
             //dd($rate); 
             try{$rate->save();}
             catch (\Exception $e) {return redirect('books\\' . $request->input('book_id'))->with('error', $e->getMessage());}
-        
         }
 
         else{
             //will added
-            $rate = new rate;
+            $rate = new Rate;
             $rate->user_id = $request->input('user_id');
             $rate->book_id = $request->input('book_id');
             $rate->rating = $request->input('rating');
@@ -239,12 +236,13 @@ class booksController extends Controller
             elseif($rate->rating=='2'){$book->ratings_2 = $book->ratings_2 + 1;}
             elseif($rate->rating=='1'){$book->ratings_1 = $book->ratings_1 + 1;}
 
-            // $one = ( ($book->ratings_5 + $book->ratings_4 + $book->ratings_3 + $book->ratings_2 + $book->ratings_1)  / ($book->work_ratings_count * 5) );
-            // $book->average_rating = 5 * $one ;
+            $one = ( (($book->ratings_5 * 5) + ($book->ratings_4 * 4) + ($book->ratings_3 * 3) + ($book->ratings_2 * 2) + ($book->ratings_1 * 1))  / ($book->work_ratings_count * 5) );
+            $book->average_rating = 5 * $one ;
                 
-        }
+        
         try{$rate->save();}
             catch (\Exception $e) {return redirect('books\\' . $request->input('book_id'))->with('error', $e->getMessage());}
+        }
         
         try{$book->save();}
             catch (\Exception $e) {return redirect('books\\' . $request->input('book_id'))->with('error', 'Book has a problem!');}

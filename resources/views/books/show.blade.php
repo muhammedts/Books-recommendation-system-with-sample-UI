@@ -18,7 +18,7 @@
   -->
   <div class="book row">
         <div class="col-sm-2">
-            <img class="mx-auto" src={{$book->image_url}} alt="">
+             <img class="mx-auto" src="{{$book->image_url}}" alt="">
         </div>
         <div class="col-sm-10">
           <h1 class="book-title">{{$book->title}}</h3>

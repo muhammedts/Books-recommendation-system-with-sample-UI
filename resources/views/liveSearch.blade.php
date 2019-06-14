@@ -18,7 +18,7 @@
       @foreach ($books as $book) 
       <div class="col-lg-2 col-md-2">
         <div class="card h-100">
-          <a href="/books/{{$book->id}}"><img class="card-img-top" src={{ asset($book->image_url) }} alt="img"></a>
+          <a href="/books/{{$book->id}}"><img class="card-img-top" src={{ asset($book->image_url) }} alt="img"></a>  
           <div class="card-body">
             <h5 class="card-title">
               <a href="/books/{{$book->id}}">{{$book->title}}</a>

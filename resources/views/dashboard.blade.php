@@ -42,7 +42,7 @@
                                 </tr> 
                                 @endforeach
                             </table> <br>
-                    @else <h4>your have no recommendations yet!</h4>
+                    @else <h4>You have no recommendations yet!</h4>
                     @endif
                   </div>
           </div>
