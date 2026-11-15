@@ -1,0 +1,88 @@
+/* Readit: small additions on top of Bootstrap 5 */
+
+body {
+    background-color: #f8fafc;
+}
+
+.letter-spaced {
+    letter-spacing: .12em;
+}
+
+/* Carousel built from the original 2019 slider images */
+.carousel-img {
+    height: 260px;
+    object-fit: cover;
+}
+
+/* Book covers */
+.book-card .book-cover {
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background-color: #e9ecef;
+}
+
+.book-card .card-title a {
+    color: inherit;
+}
+
+.book-card:hover {
+    transform: translateY(-2px);
+    transition: transform .15s ease-in-out;
+}
+
+.book-cover-lg {
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background-color: #e9ecef;
+}
+
+.book-thumb {
+    width: 32px;
+    height: 48px;
+    object-fit: cover;
+    background-color: #e9ecef;
+}
+
+/* Rating summary */
+.rating-num {
+    font-size: 3.25rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.progress {
+    height: .6rem;
+}
+
+/* Star picker: inputs are in 5..1 order and displayed reversed so that
+   "checked ~ label" highlights the chosen star and every star before it. */
+.star-input {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+.star-input label {
+    cursor: pointer;
+    font-size: 1.4rem;
+    padding: 0 .1rem;
+    color: #ced4da;
+}
+
+.star-input input:checked ~ label,
+.star-input label:hover,
+.star-input label:hover ~ label {
+    color: #ffc107;
+}
+
+.star-input input:focus-visible + label {
+    outline: 2px solid #212529;
+    border-radius: .25rem;
+}
+
+.review-body {
+    white-space: pre-line;
+}
+
+.auth-card {
+    max-width: 420px;
+}
