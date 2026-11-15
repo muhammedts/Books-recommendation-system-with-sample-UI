@@ -1,0 +1,59 @@
+# docker compose up --build                       -> MySQL + the web app on http://localhost:8000
+# docker compose --profile recommender up --build -> also runs the Spark ALS recommender
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: books
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_NAME: Readit
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ${APP_KEY:-}
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: books
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      LOG_CHANNEL: stderr
+    ports:
+      - "8000:80"
+    volumes:
+      - uploads:/var/www/html/storage/app/public
+
+  recommender:
+    profiles: ["recommender"]
+    build: https://github.com/muhammedts/Recommendation-system-ALS-with-JDBC.git#master
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://db:3306/books
+      DB_USER: root
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      INTERVAL_MINUTES: 15
+
+volumes:
+  db-data:
+  uploads:
