@@ -1,207 +1,151 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => $book->title])
+
 @section('content')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('books.index') }}">Books</a></li>
+            <li class="breadcrumb-item active text-truncate" aria-current="page">{{ $book->title }}</li>
+        </ol>
+    </nav>
 
-<div class="row">
-        {{-- <div class="col-lg-3">
-                @include('inc.mostrated')
-        </div> --}}
-        
-        <!-- /.col-lg-3 -->
-  
-        <div class="col-lg-12">
-  <!--
-          <label for="one_star"><span class="fas fa-star"></span></label>
-          <input type="radio" id="one_star">
-
-          <label for="two_star"><span class="fas fa-star"></span><span class="fas fa-star"></span></label>
-          <input type="radio" id="two_star">
-  -->
-  <div class="book row">
-        <div class="col-sm-2">
-             <img class="mx-auto" src="{{$book->image_url}}" alt="">
+    <div class="row g-4 mb-4">
+        <div class="col-sm-4 col-md-3">
+            <img src="{{ $book->cover_url }}" class="img-fluid rounded shadow-sm w-100 book-cover-lg" alt="Cover of {{ $book->title }}">
         </div>
-        <div class="col-sm-10">
-          <h1 class="book-title">{{$book->title}}</h3>
-          <ul class="book-info list-unstyled">
-            <li><strong>Author: </strong> {{$book->authors}}</li>
-          <li><strong>Year: </strong>{{$book->original_publication_year}}</li>
-          </ul>
-        </div>
-            
-      </div>     
-          <!-- /.card -->
 
+        <div class="col-sm-8 col-md-9">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+                <h1 class="h2 mb-1">{{ $book->title }}</h1>
 
-          <!-- Rating -->
-          <div class="row">
-              <div class="col">
-                  <div class="well well-sm">
-                      <div class="row">
-                          <div class="col-xs-12 col-md-6 text-center">
-                              <h1 class="rating-num">{{$book->average_rating}}</h1>
-                              <div class="rating">
-                                    @if( $book->average_rating > 4.0 )
-                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
-                                        </span><span class="fas fa-star"></span><span class="fas fa-star">
-                                        </span><span class="fas fa-star"></span>
-                                    @elseif( $book->average_rating > 3.0 || $book->average_rating <= 4.0 )
-                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
-                                        </span><span class="fas fa-star"></span><span class="fas fa-star">
-                                        </span><span class="far fa-star"></span>
-                                    @elseif( $book->average_rating > 2.0 || $book->average_rating <= 3.0)
-                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
-                                        </span><span class="fas fa-star"></span><span class="far fa-star">
-                                        </span><span class="far fa-star"></span>
-                                    @elseif( $book->average_rating > 1.0 || $book->average_rating <= 2.0)
-                                        <span class="fas fa-star"></span><span class="fas fa-star"></i>
-                                        </span><span class="far fa-star"></span><span class="far fa-star">
-                                        </span><span class="far fa-star"></span>
-                                    @elseif( $book->average_rating >= 0.0 || $book->average_rating <= 1.0)
-                                        <span class="far fa-star"></span><span class="far fa-star"></i>
-                                        </span><span class="far fa-star"></span><span class="far fa-star">
-                                        </span><span class="far fa-star"></span>
-                                    @endif
-                              </div>
-                              <div>
-                                  <span class="fas fa-star"></span>{{$book->work_ratings_count}} rate
-                              </div>
-                          </div>
-                            
-                          <div class="col-xs-12 col-md-6">
-                              <div class="row rating-desc">
-                                  <div class="col-xs-3 col-md-3 text-right">
-                                      <span class="fas fa-star"></span>5
-                                  </div>
-                                  <div class="col-xs-8 col-md-9">
-                                      <div class="progress">
-                                            @php
-                                            if($book->work_ratings_count == 0) { $totalRates = $book->work_ratings_count + 1 ;}
-                                            else { $totalRates = $book->work_ratings_count ;}
-                                            $percentage_5 = ($book->ratings_5 / $totalRates )*100;
-                                            $percentage_4 = ($book->ratings_4 / $totalRates )*100;
-                                            $percentage_3 = ($book->ratings_3 / $totalRates )*100;
-                                            $percentage_2 = ($book->ratings_2 / $totalRates )*100;
-                                            $percentage_1 = ($book->ratings_1 / $totalRates )*100;
-                                            @endphp
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width:{{$percentage_5}}% ">
-                                              <span class="sr-only">{{$percentage_5}}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- end 5 -->
-                                  <div class="col-xs-3 col-md-3 text-right">
-                                      <span class="fas fa-star"></span>4
-                                  </div>
-                                  <div class="col-xs-8 col-md-9">
-                                      <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_4}}% ">
-                                              <span class="sr-only">{{$percentage_4}}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- end 4 -->
-                                  <div class="col-xs-3 col-md-3 text-right">
-                                      <span class="fas fa-star"></span>3
-                                  </div>
-                                  <div class="col-xs-8 col-md-9">
-                                      <div class="progress">
-                                          <div class="progress-bar bg-info" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_3}}% ">
-                                              <span class="sr-only">{{$percentage_3}}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- end 3 -->
-                                  <div class="col-xs-3 col-md-3 text-right">
-                                      <span class="fas fa-star"></span>2
-                                  </div>
-                                  <div class="col-xs-8 col-md-9">
-                                      <div class="progress">
-                                          <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
-                                              aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_2}}%">
-                                              <span class="sr-only">{{$percentage_2}}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- end 2 -->
-                                  <div class="col-xs-3 col-md-3 text-right">
-                                      <span class="fas fa-star"></span>1
-                                  </div>
-                                  <div class="col-xs-8 col-md-9">
-                                      <div class="progress">
-                                          <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="80"
-                                              aria-valuemin="0" aria-valuemax="100" style="width:{{$percentage_1}}%">
-                                              <span class="sr-only">{{$percentage_1}}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- end 1 -->
-                              </div>
-                              <!-- end row -->
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <br>
-          <!--raaaaaaaaaaaaaate-->
-          <button type="submit"  class="rate_now btn btn-dark generalDonation" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#myModalHorizontal">Rate Now</button>
-          @include('books/rate')
-
-          <br>
-        
-          @if(!Auth::guest())
-          @if(Auth::user()->id==1)<!--me4 lazem 1 -->
-        <a href="/books/{{$book->id}}/edit" class="btn btn-dark">Edit</a> 
-
-        {!!Form::open(['action'=>['booksController@destroy',$book->id],'method'=>'POST','class'=>'float-right'])!!}
-        {{Form::hidden('_method','DELETE')}}
-        {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
-        {!!Form::close()!!}
-          @endif
-          @endif
-
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Book Reviews
+                @canany(['update', 'delete'], $book)
+                    <div class="d-flex gap-2 flex-shrink-0">
+                        @can('update', $book)
+                            <a href="{{ route('books.edit', $book) }}" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                        @endcan
+                        @can('delete', $book)
+                            <form action="{{ route('books.destroy', $book) }}" method="POST"
+                                  onsubmit="return confirm('Delete this book and all its ratings and reviews?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </form>
+                        @endcan
+                    </div>
+                @endcanany
             </div>
-            <div class="card-body">
-              <!--if there is rewirw plz put it-->
-              @if(isset($book->reviews))
-                <table class="table table-striped">
-                    <tr>
-                        <th>User name</th>
-                        <th>Review</th>
-                    </tr>
-                    @foreach($book->reviews as $Review)
-                    <tr>
-                        <td>{{$Review->user->name}}</td>
-                        <td>{{$Review->review}}</td>
-                    </tr> 
-                    @endforeach
-                </table> <br>
-                @else <h2>This book have no reviews yet, write one now!</h2>
+
+            <p class="lead mb-3">{{ $book->authors }}</p>
+
+            <dl class="row small mb-4">
+                @if ($book->original_publication_year)
+                    <dt class="col-sm-3 col-lg-2">Published</dt>
+                    <dd class="col-sm-9 col-lg-10">{{ $book->original_publication_year }}</dd>
                 @endif
-            </div>
-            <div class="card-body">
-            {!!Form::open(['action'=>['reviewController@index'],'method'=>'POST' ])!!}
-                <div class='form-group'>
-                    {{Form::text('review' , '' , ['class' => 'form-control ','placeholder' => 'write your opinion..'])}}
+                @if ($book->isbn)
+                    <dt class="col-sm-3 col-lg-2">ISBN</dt>
+                    <dd class="col-sm-9 col-lg-10">{{ $book->isbn }}</dd>
+                @endif
+                @if ($book->language_code)
+                    <dt class="col-sm-3 col-lg-2">Language</dt>
+                    <dd class="col-sm-9 col-lg-10">{{ $book->language_code }}</dd>
+                @endif
+            </dl>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row align-items-center g-4">
+                        <div class="col-md-4 text-center">
+                            <div class="rating-num">{{ number_format((float) $book->average_rating, 2) }}</div>
+                            <x-stars :value="$book->average_rating" class="fs-5" />
+                            <div class="text-body-secondary small mt-1">
+                                {{ number_format($book->ratings_count) }} {{ Str::plural('rating', $book->ratings_count) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            @php $total = max(1, array_sum($breakdown)); @endphp
+                            @foreach ($breakdown as $stars => $count)
+                                <div class="d-flex align-items-center gap-2 mb-1 small">
+                                    <span class="text-nowrap" style="width: 2.5rem">{{ $stars }} <i class="bi bi-star-fill text-warning"></i></span>
+                                    <div class="progress flex-grow-1" role="progressbar" aria-label="{{ $stars }} star ratings"
+                                         aria-valuenow="{{ $count }}" aria-valuemin="0" aria-valuemax="{{ $total }}">
+                                        <div @class([
+                                            'progress-bar',
+                                            'bg-success' => $stars >= 4,
+                                            'bg-info' => $stars === 3,
+                                            'bg-warning' => $stars === 2,
+                                            'bg-danger' => $stars === 1,
+                                        ]) style="width: {{ round($count / $total * 100, 1) }}%"></div>
+                                    </div>
+                                    <span class="text-body-secondary text-end" style="width: 3rem">{{ number_format($count) }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-               
-                {{ Form::hidden('user_id', Auth::user()->id ) }}
-                {{ Form::hidden('book_id', $book->id) }}
-                {{Form::submit('Add Review',['class'=>'btn btn-primary'])}}
-            {{Form::close()}}
+
+                <div class="card-footer bg-transparent">
+                    @auth
+                        <form action="{{ route('books.rating.store', $book) }}" method="POST" class="d-flex flex-wrap align-items-center gap-3">
+                            @csrf
+                            <span class="fw-semibold">{{ $userRating ? 'Your rating' : 'Rate this book' }}</span>
+                            <div class="star-input" role="radiogroup" aria-label="Your rating">
+                                @foreach ([5, 4, 3, 2, 1] as $stars)
+                                    <input type="radio" class="btn-check" name="rating" id="rating-{{ $stars }}" value="{{ $stars }}"
+                                           @checked((int) old('rating', $userRating) === $stars) required>
+                                    <label for="rating-{{ $stars }}" title="{{ $stars }} {{ Str::plural('star', $stars) }}">
+                                        <i class="bi bi-star-fill"></i>
+                                    </label>
+                                @endforeach
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-sm">{{ $userRating ? 'Update rating' : 'Rate' }}</button>
+                            @error('rating')<span class="text-danger small">{{ $message }}</span>@enderror
+                        </form>
+                    @else
+                        <span class="text-body-secondary small">
+                            <a href="{{ route('login') }}">Log in</a> to rate and review this book.
+                        </span>
+                    @endauth
+                </div>
             </div>
         </div>
-          <!-- /.card -->
-  
+    </div>
+
+    <section class="card shadow-sm">
+        <div class="card-header bg-transparent">
+            <h2 class="h5 mb-0">Reviews <span class="text-body-secondary">({{ $book->reviews->count() }})</span></h2>
         </div>
-        <!-- /.col-lg-9 -->
-  
-      </div>
- 
+
+        <div class="card-body">
+            @forelse ($book->reviews as $review)
+                <article @class(['pb-3 mb-3', 'border-bottom' => ! $loop->last])>
+                    <div class="d-flex justify-content-between small text-body-secondary mb-1">
+                        <strong class="text-body">{{ $review->user->name }}</strong>
+                        <time datetime="{{ $review->created_at->toIso8601String() }}">{{ $review->created_at->diffForHumans() }}</time>
+                    </div>
+                    <p class="mb-0 review-body">{{ $review->body }}</p>
+                </article>
+            @empty
+                <p class="text-body-secondary mb-0">This book has no reviews yet.@auth Write the first one!@endauth</p>
+            @endforelse
+        </div>
+
+        @auth
+            <div class="card-footer bg-transparent">
+                <form action="{{ route('books.reviews.store', $book) }}" method="POST">
+                    @csrf
+                    <label for="body" class="form-label fw-semibold">Write a review</label>
+                    <textarea name="body" id="body" rows="3" maxlength="5000"
+                              class="form-control @error('body') is-invalid @enderror"
+                              placeholder="What did you think of it?" required>{{ old('body') }}</textarea>
+                    @error('body')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <button type="submit" class="btn btn-primary mt-2">Post review</button>
+                </form>
+            </div>
+        @endauth
+    </section>
 @endsection

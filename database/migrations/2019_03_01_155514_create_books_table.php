@@ -1,46 +1,35 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateBooksTable extends Migration
+return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->increments('id');
-            $table->Integer('isbn');
-            $table->String('authors');
-            $table->Integer('original_publication_year');
-            $table->String('title');
-            $table->String('language_code');
-            $table->decimal('average_rating');
-            $table->Integer('work_ratings_count');
-            $table->Integer('work_text_reviews_count');
-            $table->Integer('ratings_1');
-            $table->Integer('ratings_2');
-            $table->Integer('ratings_3');
-            $table->Integer('ratings_4');
-            $table->Integer('ratings_5');
-            $table->String('image_url');
+            // The id is the goodbooks-10k book_id when imported with books:import.
+            $table->id();
+            $table->string('title', 500);
+            $table->string('authors', 1000);
+            // ISBNs keep leading zeros and a trailing "X", so they are strings.
+            $table->string('isbn', 20)->nullable();
+            $table->smallInteger('original_publication_year')->nullable();
+            $table->string('language_code', 16)->nullable();
+            // Either a remote URL or a path on the "public" disk.
+            $table->string('image_url')->nullable();
+            $table->decimal('average_rating', 3, 2)->default(0);
+            $table->unsignedInteger('ratings_count')->default(0);
             $table->timestamps();
 
+            $table->index('title');
+            $table->index('ratings_count');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('books');
     }
-}
+};

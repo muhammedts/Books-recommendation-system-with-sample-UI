@@ -1,34 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Edit '.$book->title])
+
 @section('content')
-    <h1>Edit Book</h1>
+    <div class="card shadow-sm mx-auto" style="max-width: 900px">
+        <div class="card-body p-4">
+            <h1 class="h3 mb-4">Edit &ldquo;{{ $book->title }}&rdquo;</h1>
 
-{!! Form::open(['action' => ['booksController@update',$book->id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}
-    <div class="form-group">
-        {{Form::label('title','Title')}}
-        {{Form::text('title',$book->title,['class'=>'form-control','placeholder'=>'Title'])}}
+            <form action="{{ route('books.update', $book) }}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
+                @include('books._form')
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-dark">Save changes</button>
+                    <a href="{{ route('books.show', $book) }}" class="btn btn-link">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-            {{Form::label('isbn','ISBN')}}
-            {{Form::text('isbn',$book->isbn,['class'=>'form-control','placeholder'=>'ISBN'])}}
-        </div>
-        <div class="form-group">
-                {{Form::label('authors','Authors')}}
-                {{Form::text('authors',$book->authors,['class'=>'form-control','placeholder'=>'Authors'])}}
-            </div>
-        <div class="form-group">
-                {{Form::label('year','Year')}}
-                {{Form::text('original_publication_year',$book->original_publication_year,['class'=>'form-control','placeholder'=>'Year'])}}
-            </div>
-        <div class="form-group">
-                {{Form::label('language code','Language')}}
-                {{Form::text('language_code',$book->language_code,['class'=>'form-control','placeholder'=>'Language code'])}}
-        </div>
-    
-        {{Form::hidden('_method','PUT')}}
-        {{Form::submit('submit',['class'=>'btn btn-primary'])}}
-        </div>
-       
-        
-{!! Form::close() !!}
-
 @endsection

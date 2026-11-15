@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300" role="img" aria-label="No cover available">
+  <rect width="200" height="300" fill="#e9ecef"/>
+  <rect x="12" y="12" width="176" height="276" fill="none" stroke="#ced4da" stroke-width="2"/>
+  <g fill="none" stroke="#adb5bd" stroke-width="6" stroke-linejoin="round">
+    <path d="M60 110 h40 v80 h-40 z"/>
+    <path d="M100 110 h40 v80 h-40 z"/>
+  </g>
+  <text x="100" y="230" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="16" fill="#6c757d">No cover</text>
+</svg>

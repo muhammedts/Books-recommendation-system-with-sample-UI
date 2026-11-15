@@ -1,37 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Add a book'])
+
 @section('content')
-    <h1>Add Book</h1>
+    <div class="card shadow-sm mx-auto" style="max-width: 900px">
+        <div class="card-body p-4">
+            <h1 class="h3 mb-4">Add a book</h1>
 
-{!! Form::open(['action' => 'booksController@store','method'=>'POST','enctype'=>'multipart/form-data']) !!}
-    <div class="form-group">
-        {{Form::label('title','Title')}}
-        {{Form::text('title','',['class'=>'form-control','placeholder'=>'Title'])}}
-    </div>
-    <div class="form-group">
-        {{Form::label('isbn','ISBN')}}
-        {{Form::text('isbn','',['class'=>'form-control','placeholder'=>'ISBN'])}}
-    </div>
-    <div class="form-group">
-            {{Form::label('authors','Authors')}}
-            {{Form::text('authors','',['class'=>'form-control','placeholder'=>'Authors'])}}
-        </div>
-    <div class="form-group">
-            {{Form::label('year','Year')}}
-            {{Form::text('original_publication_year','',['class'=>'form-control','placeholder'=>'Year'])}}
-        </div>
-    <div class="form-group">
-            {{Form::label('language code','Language')}}
-            {{Form::text('language_code','',['class'=>'form-control','placeholder'=>'Language code'])}}
-    </div>
-    <div class="form-group">
-            {{Form::label('Cover Image','Image')}}
-            <br>
-            {{Form::file('image_url')}}
-    </div>
-    {{Form::submit('submit',['class'=>'btn btn-primary'])}}
-    </div>
-       
-        
-{!! Form::close() !!}
+            <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
+                @include('books._form')
 
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-dark">Create book</button>
+                    <a href="{{ route('books.index') }}" class="btn btn-link">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection

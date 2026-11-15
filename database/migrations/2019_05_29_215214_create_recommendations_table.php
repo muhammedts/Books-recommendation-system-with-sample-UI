@@ -1,45 +1,30 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateRecommendationsTable extends Migration
+return new class extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
+     * Written by the Spark ALS job (truncate + refill), read by the web app.
+     * Keep the column names and types stable.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('recommendations', function (Blueprint $table) {
-            $table->Integer('recommendation1');
-            $table->Integer('recommendation2');
-            $table->Integer('recommendation3');
-            $table->Integer('recommendation4');
-            $table->Integer('recommendation5');
-            $table->Integer('recommendation6');
-            $table->Integer('recommendation7');
-            $table->Integer('recommendation8');
-            $table->Integer('recommendation9');
-            $table->Integer('recommendation10');
-            $table->bigInteger('userId')->unsigned();
-            $table->timestamps();
-        });
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->unsignedTinyInteger('rank');
+            $table->double('score');
+            $table->timestamp('generated_at')->useCurrent();
 
-        Schema::table('recommendations', function (Blueprint $table) {
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');;
+            $table->primary(['user_id', 'rank']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('recommendations');
     }
-}
+};
